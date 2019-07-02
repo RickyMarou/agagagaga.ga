@@ -1,0 +1,113 @@
+:root {
+  --background: rgb(249, 220, 225);
+  --text: rgb(78, 82, 85);
+
+  --circleX: 300px;
+  --circleY: 400px;
+}
+
+@keyframes circle {
+  0% {
+    clip-path: circle(0 at var(--circleX) var(--circleY));
+  }
+  100% {
+    clip-path: circle(70px at var(--circleX) var(--circleY));
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.layer {
+  animation-name: circle, opacity;
+  animation-duration: 4s;
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1), linear;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+  animation-play-state: running;
+
+  clip-path: circle(0 at var(--circleX) var(--circleY));
+  opacity: 1;
+}
+
+main {
+  position: relative;
+}
+
+.styles-module--svg--1w4bd {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.styles-module--testCircle--1acG1 {
+  fill: #ff5e00;
+}
+
+.backdrop {
+  background: var(--text);
+  color: var(--background);
+}
+
+.backdrop .styles-module--title--1TjdU {
+  background: var(--text);
+  color: var(--background);
+}
+
+body {
+  background: var(--text);
+  color: var(--background);
+}
+
+.layer .styles-module--title--1TjdU {
+  color: var(--text);
+}
+
+.layer {
+  color: var(--text);
+  background: white;
+
+  transform: translateZ(0);
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1em 2em;
+}
+
+.styles-module--inner--ndTLQ {
+  background: var(--text);
+  padding: 0 5em;
+}
+
+.backdrop {
+  padding: 1em 2em;
+  transform: translateZ(0);
+}
+
+.styles-module--title--1TjdU {
+  font-size: calc(62px + 10vw);
+}
+
+.styles-module--text--U8XMz {
+  font-size: calc(10px + 5vw);
+}
