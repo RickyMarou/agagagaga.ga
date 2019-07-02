@@ -1,32 +1,35 @@
-let scrollPosition = window.scrollY;
-const main = document.getElementById("main");
-const og = document.querySelector("[data-layer]");
-const layer = og.cloneNode(true);
-let layerCount = 0;
-og.addEventListener("animationend", function animationend() {
-  console.log("animationend");
-  og.removeEventListener("animationend", animationend);
-  og.parentElement.removeChild(og);
-});
+const main = document.getElementById("main")
+const og = document.querySelector("[data-layer]")
+const layer = og.cloneNode(true)
 
-console.log({ layer });
+let scrollPosition = window.scrollY
+let layerCount = 0
+
+og.addEventListener("animationend", function animationend() {
+  og.removeEventListener("animationend", animationend)
+  og.parentElement.removeChild(og)
+})
 
 window.addEventListener("scroll", () => {
-  scrollPosition = window.scrollY;
-});
+  scrollPosition = window.scrollY
+})
 
-document.addEventListener("click", mouseMoveEvent => {
-  mousePosition = {
-    x: mouseMoveEvent.clientX,
-    y: mouseMoveEvent.clientY + scrollPosition
-  };
-  const newLayer = layer.cloneNode(true);
-  newLayer.setAttribute("data-layer", layerCount++);
+setInterval(() => {
+  const newLayer = layer.cloneNode(true)
+  newLayer.setAttribute("data-layer", layerCount++)
   newLayer.addEventListener("animationend", function animationend() {
-    newLayer.removeEventListener("animationend", animationend);
-    main.removeChild(newLayer);
-  });
-  main.appendChild(newLayer);
-  newLayer.style.setProperty("--circleX", `${mousePosition.x}px`);
-  newLayer.style.setProperty("--circleY", `${mousePosition.y}px`);
-});
+    newLayer.removeEventListener("animationend", animationend)
+    main.removeChild(newLayer)
+  })
+  main.appendChild(newLayer)
+
+  const x = window.pageXOffset + window.innerWidth / 2
+  const y = window.pageYOffset + window.innerHeight / 2
+
+  console.log({
+    pageXOffset: window.pageXOffset,
+    pageYOffset: window.pageYOffset
+  })
+  newLayer.style.setProperty("--circleX", `${x}px`)
+  newLayer.style.setProperty("--circleY", `${y}px`)
+}, 5000)
