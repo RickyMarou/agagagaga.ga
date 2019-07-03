@@ -15,37 +15,33 @@ window.addEventListener("scroll", () => {
 })
 
 document.addEventListener("click", mouseMoveEvent => {
-  mousePosition = {
+  createLayer({
     x: mouseMoveEvent.clientX,
     y: mouseMoveEvent.clientY + scrollPosition
-  }
-  const newLayer = layer.cloneNode(true)
-  newLayer.setAttribute("data-layer", layerCount++)
-  newLayer.addEventListener("animationend", function animationend() {
-    newLayer.removeEventListener("animationend", animationend)
-    main.removeChild(newLayer)
   })
-  main.appendChild(newLayer)
-  newLayer.style.setProperty("--circleX", `${mousePosition.x}px`)
-  newLayer.style.setProperty("--circleY", `${mousePosition.y}px`)
 })
 
 setInterval(() => {
+  const { pageXOffset, innerHeight, innerWidth } = window
+
+  const x = pageXOffset + getRandomInt(50, innerWidth - 50)
+  const y = pageYOffset + getRandomInt(50, innerHeight - 50)
+
+  createLayer({ x, y })
+}, 1000)
+
+function createLayer({ x, y }) {
   const newLayer = layer.cloneNode(true)
   newLayer.setAttribute("data-layer", layerCount++)
   newLayer.addEventListener("animationend", function animationend() {
     newLayer.removeEventListener("animationend", animationend)
     main.removeChild(newLayer)
   })
-  main.appendChild(newLayer)
-
-  const x = window.pageXOffset + window.innerWidth / 2
-  const y = window.pageYOffset + window.innerHeight / 2
-
-  console.log({
-    pageXOffset: window.pageXOffset,
-    pageYOffset: window.pageYOffset
-  })
   newLayer.style.setProperty("--circleX", `${x}px`)
   newLayer.style.setProperty("--circleY", `${y}px`)
-}, 3000)
+  main.appendChild(newLayer)
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
