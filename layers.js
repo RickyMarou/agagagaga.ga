@@ -21,14 +21,24 @@ document.addEventListener("click", mouseMoveEvent => {
   })
 })
 
-setInterval(() => {
-  const { pageXOffset, innerHeight, innerWidth } = window
+let interval = null
+function play() {
+  interval = setInterval(() => {
+    const { pageXOffset, innerHeight, innerWidth } = window
 
-  const x = pageXOffset + getRandomInt(50, innerWidth - 50)
-  const y = pageYOffset + getRandomInt(50, innerHeight - 50)
+    const x = pageXOffset + getRandomInt(50, innerWidth - 50)
+    const y = pageYOffset + getRandomInt(50, innerHeight - 50)
 
-  createLayer({ x, y })
-}, 1000)
+    createLayer({ x, y })
+  }, 1000)
+}
+
+function pause() {
+  clearInterval(interval)
+}
+
+window.onfocus(play)
+window.onblur(play)
 
 function createLayer({ x, y }) {
   const newLayer = layer.cloneNode(true)
